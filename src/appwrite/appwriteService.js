@@ -99,15 +99,45 @@ export class Service {
 
   //Orders
 
-  async createOrders() {}
+  //async createOrders() {}
 
-  async updateOrders() {}
+  async updateOrder(orderId, { status }) {
+    try {
+      return await this.databases.updateDocument(
+        appwrite_config.appwriteDatabaseId,
+        appwrite_config.appwriteCollectionIdOrders,
+        orderId,
+        { status }
+      );
+    } catch (error) {
+      console.log("Appwrite service :: updateOrder :: error", error);
+    }
+  }
 
-  async deleteOrders() {}
+  //async deleteOrders() {}
 
-  async getOrder() {}
+  async getOrder(orderId) {
+    try {
+      return await this.databases.getDocument(
+        appwrite_config.appwriteDatabaseId,
+        appwrite_config.appwriteCollectionIdOrders,
+        orderId
+      );
+    } catch (error) {
+      console.log("Appwrite service :: getCategory :: error", error);
+    }
+  }
 
-  async getOrders() {}
+  async getOrders() {
+    try {
+      return await this.databases.listDocuments(
+        appwrite_config.appwriteDatabaseId,
+        appwrite_config.appwriteCollectionIdOrders
+      );
+    } catch (error) {
+      console.log("Appwrite service :: getOrders :: error", error);
+    }
+  }
 
   // file upload service
 

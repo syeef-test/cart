@@ -87,9 +87,9 @@ function CategoryManagement() {
   };
 
   return (
-    <div>
-      <h2 className="text-xl font-bold mb-2">Category Management</h2>
-      <form onSubmit={handleSubmit} className="mb-4">
+    <div className="container mx-auto p-4">
+      <h2 className="text-2xl font-bold mb-4">Category Management</h2>
+      <form onSubmit={handleSubmit} className="mb-6">
         <div>
           <label>Name</label>
           <input type="text" ref={nameRef} required />
