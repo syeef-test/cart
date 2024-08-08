@@ -87,15 +87,84 @@ export class Service {
 
   //Products
 
-  async createProducts() {}
+  async createProducts({ name, price, category_id, image, description }) {
+    try {
+      console.log("appwrite_service", {
+        name,
+        price,
+        category_id,
+        image,
+        description,
+      });
 
-  async updateProducts() {}
+      if (!name || !description || !price || !category_id || !image) {
+        throw new Error("Missing required category fields");
+      }
+      const response = await this.databases.createDocument(
+        appwrite_config.appwriteDatabaseId,
+        appwrite_config.appwriteCollectionIdProducts,
+        ID.unique(),
+        { name, price, category_id, image, description }
+      );
 
-  async deleteProducts() {}
+      console.log("Product created successfully:", response);
+      return response;
+    } catch (error) {
+      console.log("Appwrite service :: createProduct :: error", error);
+      console.log(error);
+    }
+  }
 
-  async getProduct() {}
+  async updateProducts(
+    productId,
+    { name, price, category_id, image, description }
+  ) {
+    try {
+      return await this.databases.updateDocument(
+        appwrite_config.appwriteDatabaseId,
+        appwrite_config.appwriteCollectionIdProducts,
+        productId,
+        { name, price, category_id, image, description }
+      );
+    } catch (error) {
+      console.log("Appwrite service :: updateProduct :: error", error);
+    }
+  }
 
-  async getProducts() {}
+  async deleteProducts(productId) {
+    try {
+      return await this.databases.deleteDocument(
+        appwrite_config.appwriteDatabaseId,
+        appwrite_config.appwriteCollectionIdProducts,
+        productId
+      );
+    } catch (error) {
+      console.log("Appwrite service :: deleteProduct :: error", error);
+    }
+  }
+
+  async getProduct(productId) {
+    try {
+      return await this.databases.getDocument(
+        appwrite_config.appwriteDatabaseId,
+        appwrite_config.appwriteCollectionIdProducts,
+        productId
+      );
+    } catch (error) {
+      console.log("Appwrite service :: getProduct :: error", error);
+    }
+  }
+
+  async getProducts() {
+    try {
+      return await this.databases.listDocuments(
+        appwrite_config.appwriteDatabaseId,
+        appwrite_config.appwriteCollectionIdProducts
+      );
+    } catch (error) {
+      console.log("Appwrite service :: getProducts :: error", error);
+    }
+  }
 
   //Orders
 
